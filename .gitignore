@@ -1,0 +1,8 @@
+# Dependencias de Node
+node_modules/
+npm-debug.log
+.env
+
+# Archivos de compilación
+/dist/
+*.js.map
