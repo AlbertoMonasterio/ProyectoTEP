@@ -8,7 +8,3 @@ export * from './interfaces/feature-flag.interface';
 
 
 
-
-git add src/interfaces/feature-flag.interface.ts src/feature-flag.service.ts src/index.ts
-git commit -m "feat(feature-flags): Implement core service with full API and interfaces"
-
