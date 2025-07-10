@@ -174,5 +174,107 @@ describe('FeatureFlagService', () => {
       expect(serviceWithManyFlags.isFeatureEnabled('flag1')).toBe(false); // Ahora en dev, flag1 no está activa (solo prod)
       expect(serviceWithManyFlags.isFeatureEnabled('flag2')).toBe(false); // flag2 ya no existe en la config
     });
+   
+});
+
+// --- NUEVAS PRUEBAS PARA updateFeatureFlag ---
+describe('updateFeatureFlag', () => {
+  let service: FeatureFlagService;
+
+  beforeEach(() => {
+      // Asegúrate de resetear el servicio con una nueva configuración para cada prueba
+      service = new FeatureFlagService(JSON.parse(JSON.stringify(testConfig)), 'dev');
+    });
+
+    it('should update properties of an existing feature flag (including array replacement)', () => {
+      // Act: Actualizar la 'featureA' para que también esté en 'prod' y cambie los usuarios
+      service.updateFeatureFlag('featureA', {
+        environments: ['dev', 'test', 'prod'],
+        users: ['adminOnly']
+      });
+
+      // Assert: Verificar que la feature flag se actualizó correctamente (arrays reemplazados)
+      const updatedFlag = service.getFlagDetails('featureA');
+      expect(updatedFlag).toEqual({
+        environments: ['dev', 'test', 'prod'],
+        users: ['adminOnly']
+      });
+
+      // Asegurarse de que otras flags no hayan sido afectadas
+      const featureB = service.getFlagDetails('featureB');
+      expect(featureB).toEqual(testConfig['featureB']);
+    });
+
+    it('should add a new feature flag if it does not exist', () => {
+      // Act: Añadir una nueva feature flag
+      service.updateFeatureFlag('newFeature', {
+        environments: ['dev'],
+        users: ['tester1']
+      });
+
+      // Assert: Verificar que la nueva feature flag se añadió y es correcta
+      const newFlag = service.getFlagDetails('newFeature');
+      expect(newFlag).toEqual({
+        environments: ['dev'],
+        users: ['tester1']
+      });
+
+      // Asegurarse de que las flags existentes no hayan sido afectadas
+      const featureA = service.getFlagDetails('featureA');
+      expect(featureA).toEqual(testConfig['featureA']);
+    });
+
+    it('should replace arrays (environments and users) completely, not merge them', () => {
+      // Arrange: La config inicial de featureA es: { environments: ['dev', 'test'], users: ['user1', 'admin'] }
+
+      // Act: Actualizar la flag con nuevos arrays (reemplazando los anteriores)
+      service.updateFeatureFlag('featureA', {
+        environments: ['prod', 'test'],
+        users: ['newAdmin']
+      });
+
+      // Assert: Verificar que los arrays fueron reemplazados completamente
+      const updatedFlag = service.getFlagDetails('featureA');
+      expect(updatedFlag).toEqual({
+        environments: ['prod', 'test'], // Esperamos solo estos
+        users: ['newAdmin']         // Esperamos solo estos
+      });
+      // Y también que featureA en el entorno dev original ahora esté deshabilitada si no se incluye
+      service.setEnvironment('dev');
+      expect(service.isFeatureEnabled('featureA')).toBe(false); // Porque 'dev' ya no está en su lista de environments
+    });
+
+    it('should update only the provided properties without affecting others', () => {
+      // Arrange: La config inicial de featureC es: { environments: ['dev'], users: ['specificUser'] }
+
+      // Act: Actualizar featureC, solo cambiando 'users' y dejando 'environments' intacto
+      service.updateFeatureFlag('featureC', {
+        users: ['anotherSpecificUser']
+      });
+
+      // Assert: 'environments' debería seguir siendo el mismo, 'users' debería haber cambiado
+      const updatedFlag = service.getFlagDetails('featureC');
+      expect(updatedFlag?.environments).toEqual(['dev']); // No debería haber cambiado
+      expect(updatedFlag?.users).toEqual(['anotherSpecificUser']); // Debería haber sido reemplazado
+    });
+
+    it('should handle updating a flag that previously had no users or environments', () => {
+        // Arrange: Añadir una flag completamente nueva sin arrays inicialmente
+        service.updateFeatureFlag('flagNoArrays', {});
+        expect(service.getFlagDetails('flagNoArrays')).toEqual({}); // La flag existe pero vacía
+
+        // Act: Actualizarla solo con environments
+        service.updateFeatureFlag('flagNoArrays', { environments: ['dev'] });
+        expect(service.getFlagDetails('flagNoArrays')).toEqual({ environments: ['dev'] });
+
+        // Act: Actualizarla solo con users (environments debería permanecer del paso anterior)
+        service.updateFeatureFlag('flagNoArrays', { users: ['test-user'] });
+        expect(service.getFlagDetails('flagNoArrays')).toEqual({ environments: ['dev'], users: ['test-user'] });
+
+        // Act: Actualizarla con ambos, reemplazando el contenido
+        service.updateFeatureFlag('flagNoArrays', { environments: ['prod'], users: ['prod-user'] });
+        expect(service.getFlagDetails('flagNoArrays')).toEqual({ environments: ['prod'], users: ['prod-user'] });
+    });
+
   });
 });

@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752105825857" clover="3.2.0">
-  <project timestamp="1752105825857" name="All files">
-    <metrics statements="23" coveredstatements="22" conditionals="20" coveredconditionals="19" methods="6" coveredmethods="6" elements="49" coveredelements="47" complexity="0" loc="23" ncloc="23" packages="1" files="1" classes="1"/>
+<coverage generated="1752123340696" clover="3.2.0">
+  <project timestamp="1752123340696" name="All files">
+    <metrics statements="25" coveredstatements="24" conditionals="22" coveredconditionals="21" methods="7" coveredmethods="7" elements="54" coveredelements="52" complexity="0" loc="25" ncloc="25" packages="1" files="1" classes="1"/>
     <file name="feature-flag.service.ts" path="C:\Users\alber\OneDrive\Desktop\Proyecto Tópicos\ProyectoTEP\src\feature-flag.service.ts">
-      <metrics statements="23" coveredstatements="22" conditionals="20" coveredconditionals="19" methods="6" coveredmethods="6"/>
-      <line num="4" count="1" type="stmt"/>
-      <line num="9" count="18" type="cond" truecount="1" falsecount="1"/>
-      <line num="10" count="0" type="stmt"/>
-      <line num="12" count="18" type="cond" truecount="4" falsecount="0"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="15" count="17" type="stmt"/>
-      <line num="16" count="17" type="stmt"/>
-      <line num="20" count="15" type="stmt"/>
-      <line num="22" count="15" type="cond" truecount="2" falsecount="0"/>
-      <line num="23" count="2" type="stmt"/>
-      <line num="24" count="2" type="stmt"/>
-      <line num="28" count="13" type="stmt"/>
-      <line num="29" count="13" type="cond" truecount="2" falsecount="0"/>
-      <line num="30" count="5" type="stmt"/>
-      <line num="35" count="8" type="cond" truecount="4" falsecount="0"/>
-      <line num="36" count="4" type="stmt"/>
-      <line num="39" count="4" type="cond" truecount="2" falsecount="0"/>
-      <line num="46" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="47" count="1" type="stmt"/>
-      <line num="49" count="3" type="stmt"/>
-      <line num="53" count="2" type="stmt"/>
-      <line num="57" count="4" type="stmt"/>
-      <line num="61" count="2" type="stmt"/>
+      <metrics statements="25" coveredstatements="24" conditionals="22" coveredconditionals="21" methods="7" coveredmethods="7"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="16" count="23" type="cond" truecount="1" falsecount="1"/>
+      <line num="17" count="0" type="stmt"/>
+      <line num="19" count="23" type="cond" truecount="4" falsecount="0"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="22" count="22" type="stmt"/>
+      <line num="23" count="22" type="stmt"/>
+      <line num="35" count="16" type="stmt"/>
+      <line num="37" count="16" type="cond" truecount="2" falsecount="0"/>
+      <line num="38" count="2" type="stmt"/>
+      <line num="39" count="2" type="stmt"/>
+      <line num="43" count="14" type="stmt"/>
+      <line num="44" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="45" count="6" type="stmt"/>
+      <line num="50" count="8" type="cond" truecount="4" falsecount="0"/>
+      <line num="51" count="4" type="stmt"/>
+      <line num="54" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="64" count="5" type="cond" truecount="4" falsecount="0"/>
+      <line num="65" count="1" type="stmt"/>
+      <line num="67" count="4" type="stmt"/>
+      <line num="76" count="12" type="stmt"/>
+      <line num="84" count="4" type="stmt"/>
+      <line num="93" count="2" type="stmt"/>
+      <line num="107" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="112" count="8" type="stmt"/>
     </file>
   </project>
 </coverage>
