@@ -11,7 +11,8 @@
     "start": "node dist/index.js",
     "build:start": "tsc && node dist/index.js",
     "test": "jest",
-    "test-playground": "tsc src/test-playground.ts --outDir dist && node dist/test-playground.js"
+    "test-playground": "tsc src/test-playground.ts --outDir dist && node dist/test-playground.js",
+    "prepare": "npm run build"
   },
   "keywords": [
     "feature-flags",
