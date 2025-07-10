@@ -1,14 +1,13 @@
 {
   "name": "feature-flag-service-tep",
   "version": "1.0.0",
-  
   "main": "dist/index.js",
-  "types": "dist/index.d.ts", 
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "build:start": "tsc && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "test-playground": "tsc src/test-playground.ts --outDir dist && node dist/test-playground.js"
   },
   "keywords": [
@@ -19,15 +18,35 @@
     "aspect",
     "dynamic-features"
   ],
-
   "author": "apmonasterio.22@est.ucab.edu.ve,jrmondim.22@est.ucab.edu.ve,cacova.21@est.ucab.edu.ve",
-
   "license": "MIT",
   "description": "Una librería TypeScript para la gestión de Feature Flags, compatible con NestJS.",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.15.29",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.ts",
+      "<rootDir>/src/**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.spec.ts",
+      "!src/**/*.test.ts",
+      "!src/test-playground.ts",
+      "!src/index.ts"
+    ]
   }
 }
-
-
